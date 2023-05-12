@@ -22,6 +22,24 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+int	check_digit(int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (++i < ac)
+	{
+		j = -1;
+		while (++j < ft_strlen(av[i]))
+		{
+			if ((av[i][j] < 48 || av[i][j] > 57) && av[i][j] != '+')
+				return (1);
+		}
+	}
+	return (0);
+}
+
 int	ft_atoi(char *str)
 {
 	int	i;
@@ -48,28 +66,11 @@ int	ft_atoi(char *str)
 	return (res * sign);
 }
 
-int	check_digit(int ac, char **av)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (++i < ac)
-	{
-		j = -1;
-		while (++j < ft_strlen(av[i]))
-		{
-			if ((av[i][j] < 48 || av[i][j] > 57) && av[i][j] != '+')
-				return (1);
-		}
-	}
-	return (0);
-}
-
 int	check_input(int ac, char **av, t_data *data)
 {
 	if (ac != 6 && ac != 5)
-		return (printf("wrong arguments\n"), 1);
+		printf("wrong arguments\n");
+		exit(1);
 	if (check_digit(ac, av))
 		return (printf("check the content of your param\n"), 1);
 	data->must_eat = 1;
