@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+# include "philo.h"
 
 void	ft_check_health(t_philo *philo)
 {

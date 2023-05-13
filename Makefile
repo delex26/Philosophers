@@ -7,8 +7,9 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 SRC =	init.c\
-		philo.c\
+		main.c\
 		utils.c\
+		utils1.c\
 		
 OBJS = $(SRC:.c=.o) 
 
