@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:37:47 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/13 15:51:01 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:50:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,20 @@ void	display_message(char *s, int id, t_data *data)
 	printf("[%ld] %d %s\n", ft_current_time() - data->s_time, id, s);
 	fflush(stdout);
 	pthread_mutex_unlock(&data->print);
+}
+
+void	ft_check_health(t_philo *philo)
+{
+	if (philo->data->ate == philo->data->nb_philo)
+	{
+		usleep(2000);
+		pthread_mutex_lock(&philo->data->print);
+		philo->data->status = 1;
+	}
+	if (ft_current_time() >= philo->should_die + 5)
+	{
+		display_message("died", philo->id, philo->data);
+		pthread_mutex_lock(&philo->data->print);
+		philo->data->status = 1;
+	}
 }

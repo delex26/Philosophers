@@ -47,10 +47,11 @@ typedef struct s_philo
 long	ft_current_time(void);
 t_philo	*ft_create_philosophers(t_data *data);
 int		check_input(int ac, char **av, t_data *data);
+void	display_message(char *s, int id, t_data *data);
+void	ft_check_health(t_philo *philo);
 int		ft_isdigit(int c);
 int		check_digit(int ac, char **av);
 int		ft_atoi(const char *str);
-void	display_message(char *s, int id, t_data *data);
 
 
 #endif 

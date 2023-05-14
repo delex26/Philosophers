@@ -12,22 +12,6 @@
 
 # include "philo.h"
 
-void	ft_check_health(t_philo *philo)
-{
-	if (philo->data->ate == philo->data->nb_philo)
-	{
-		usleep(2000);
-		pthread_mutex_lock(&philo->data->print);
-		philo->data->status = 1;
-	}
-	if (ft_current_time() >= philo->should_die + 5)
-	{
-		display_message("died", philo->id, philo->data);
-		pthread_mutex_lock(&philo->data->print);
-		philo->data->status = 1;
-	}
-}
-
 int	main(int ac, char **av)
 {
 	int		i;

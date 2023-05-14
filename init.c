@@ -38,17 +38,16 @@ void	philos_activities(t_philo *philos)
 
 void	*ft_philosophers(void *philo)
 {
-	int		i;
 	t_philo	*philos;
+	int		count;
 
-	i = 0;
 	philos = (t_philo *)philo;
-	philos->leave = 0;
+	count = 0;
 	philos->should_die = philos->data->s_time + philos->data->time_die;
-	while (i < philos->data->must_eat || !(philos->data->must_eat))
+	while (philos->data->must_eat == 0 || count < philos->data->must_eat)
 	{
 		philos_activities(philos);
-		i++;
+		count++;
 		usleep(100);
 	}
 	philos->leave = 1;
