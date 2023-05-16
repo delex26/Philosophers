@@ -21,14 +21,14 @@
 
 typedef struct s_data
 {
-	int				nb_philo;
-	int				time_sleep;
-	int				time_eat;
-	int				time_die;
-	int				must_eat;
-	long			s_time;
-	int				status;
-	int				ate;
+	int				eat_chrono;
+	int				sleep_chrono;
+	int				die_chrono;
+	int				gotta_eat;
+	int				situation;
+	int				has_eaten;
+	long			start_chrono;
+	int				philos_num;
 	pthread_mutex_t	print;
 }	t_data;
 
@@ -44,8 +44,8 @@ typedef struct s_philo
 	t_data			*data;
 }	t_philo;
 
-long	ft_current_time(void);
-t_philo	*ft_create_philosophers(t_data *data);
+long	time_calcul(void);
+t_philo	*philos_create(t_data *data);
 int		check_input(int ac, char **av, t_data *data);
 void	display_message(char *s, int id, t_data *data);
 void	ft_check_health(t_philo *philo);
