@@ -22,35 +22,35 @@ long	time_calcul(void)
 
 void	philos_routine(t_philo *philos)
 {
-	display_message("HE IS THINKING", philos->id, philos->data);
+	display_message("HE IS THINKING", philos->philo_id, philos->data);
 	pthread_mutex_lock(&philos->fork);
-	display_message("FIRST FORK TAKEN", philos->id, philos->data);
+	display_message("FIRST FORK TAKEN", philos->philo_id, philos->data);
 	pthread_mutex_lock(philos->next_fork);
-	display_message("SECOND FORK TAKEN", philos->id, philos->data);
-	philos->should_die = time_calcul() + philos->data->die_chrono;
-	display_message("HE IS EATING", philos->id, philos->data);
+	display_message("SECOND FORK TAKEN", philos->philo_id, philos->data);
+	philos->has_to_die = time_calcul() + philos->data->die_chrono;
+	display_message("HE IS EATING", philos->philo_id, philos->data);
 	usleep(philos->data->eat_chrono * 1000);
 	pthread_mutex_unlock(&philos->fork);
 	pthread_mutex_unlock(philos->next_fork);
-	display_message("HE IS SLEEPING", philos->id, philos->data);
+	display_message("HE IS SLEEPING", philos->philo_id, philos->data);
 	usleep(philos->data->sleep_chrono * 1000);
 }
 
 void	*philos_repeat(void *philo)
-{
+{ 
 	t_philo	*philos;
 	int		count;
 
 	philos = (t_philo *)philo;
 	count = 0;
-	philos->should_die = philos->data->start_chrono + philos->data->die_chrono;
+	philos->has_to_die = philos->data->start_chrono + philos->data->die_chrono;
 	while (philos->data->gotta_eat == 0 || count < philos->data->gotta_eat)
 	{
 		philos_routine(philos);
 		count++;
 		usleep(100);
 	}
-	philos->leave = 1;
+	philos->out = 1;
 	return (NULL);
 }
 
@@ -61,7 +61,7 @@ void	philos_connect(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->philos_num)
 	{
-		philo[i].id = i + 1;
+		philo[i].philo_id = i + 1;
 		philo[i].data = data;
 		if (i == data->philos_num - 1)
 			philo[i].next_fork = &philo[0].fork;

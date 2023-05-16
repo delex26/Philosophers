@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 		return (0);
 	while (data.situation == 0)
 	{
-		if (philo->leave == 1)
+		if (philo->out == 1)
 			philo->data->has_eaten++;
 		ft_check_health(philo);
 	}

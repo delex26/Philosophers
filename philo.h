@@ -34,10 +34,10 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int				id;
-	int				eat_max;
-	long			should_die;
-	int				leave;
+	int				out;
+	int				max_eating;
+	long			has_to_die;
+	int				philo_id;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*next_fork;

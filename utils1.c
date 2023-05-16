@@ -6,7 +6,7 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:38:41 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/16 17:04:48 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:20:42 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	ft_check_health(t_philo *philo)
 		pthread_mutex_lock(&philo->data->print);
 		philo->data->situation = 1;
 	}
-	if (time_calcul() >= philo->should_die + 5)
+	if (time_calcul() >= philo->has_to_die + 5)
 	{
-		display_message("RIP", philo->id, philo->data);
+		display_message("RIP", philo->philo_id, philo->data);
 		pthread_mutex_lock(&philo->data->print);
 		philo->data->situation = 1;
 	}
