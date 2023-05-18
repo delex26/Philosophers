@@ -19,7 +19,7 @@
 # include   <pthread.h>
 # include   <stdio.h>
 
-typedef struct s_data
+typedef struct s_info
 {
 	int				eat_chrono;
 	int				sleep_chrono;
@@ -29,8 +29,8 @@ typedef struct s_data
 	int				has_eaten;
 	long			start_chrono;
 	int				philos_num;
-	pthread_mutex_t	print;
-}	t_data;
+	pthread_mutex_t	type;
+}	t_info;
 
 typedef struct s_philo
 {
@@ -40,14 +40,14 @@ typedef struct s_philo
 	int				philo_id;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
-	pthread_mutex_t	*next_fork;
-	t_data			*data;
+	pthread_mutex_t	*second_fork;
+	t_info			*info;
 }	t_philo;
 
 long	time_calcul(void);
-t_philo	*philos_create(t_data *data);
-int		check_input(int ac, char **av, t_data *data);
-void	display_message(char *s, int id, t_data *data);
+t_philo	*philos_create(t_info *info);
+int		check_input(int ac, char **av, t_info *info);
+void	display_message(char *s, int id, t_info *info);
 void	ft_check_health(t_philo *philo);
 int		ft_isdigit(int c);
 int		check_digit(int ac, char **av);

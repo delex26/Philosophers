@@ -15,27 +15,27 @@
 int	main(int ac, char **av)
 {
 	int		i;
-	t_data	data;
+	t_info	info;
 	t_philo	*philo;
 
-	data.situation = 0;
-	data.has_eaten = 0;
-	if (check_input(ac, av, &data))
+	info.situation = 0;
+	info.has_eaten = 0;
+	if (check_input(ac, av, &info))
 		return (0);
-	pthread_mutex_init(&data.print, NULL);
-	philo = philos_create(&data);
+	pthread_mutex_init(&info.type, NULL);
+	philo = philos_create(&info);
 	if (philo == NULL)
 		return (0);
-	while (data.situation == 0)
+	while (info.situation == 0)
 	{
 		if (philo->out == 1)
-			philo->data->has_eaten++;
+			philo->info->has_eaten++;
 		ft_check_health(philo);
 	}
 	i = -1;
-	while (++i < data.philos_num)
+	while (++i < info.philos_num)
 		pthread_mutex_destroy(&philo[i].fork);
-	pthread_mutex_destroy(&data.print);
+	pthread_mutex_destroy(&info.type);
 	free(philo);
 	return (0);
 }
