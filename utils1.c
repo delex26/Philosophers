@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:38:41 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/18 20:16:34 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:25:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	display_message(char *s, int id, t_info *info)
 	pthread_mutex_unlock(&info->type);
 }
 
-void	ft_check_health(t_philo *philo)
+void	ft_check_health(t_philos *philo)
 {
 	if (philo->info->has_eaten == philo->info->philos_num)
 	{

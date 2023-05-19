@@ -12,6 +12,23 @@
 
 # include "philo.h"
 
+void	philos_connect(t_info *info, t_philos *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < info->philos_num)
+	{
+		philo[i].philo_id = i + 1;
+		philo[i].info = info;
+		if (i == info->philos_num - 1)
+			philo[i].second_fork = &philo[0].fork;
+		else
+			philo[i].second_fork = &philo[i + 1].fork;
+		i++;
+	}
+}
+
 long	time_calcul(void)
 {
 	struct timeval	current_time;
@@ -20,7 +37,7 @@ long	time_calcul(void)
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-void	philos_routine(t_philo *philos)
+void	philos_routine(t_philos *philos)
 {
 	display_message("HE IS THINKING", philos->philo_id, philos->info);
 	pthread_mutex_lock(&philos->fork);
@@ -38,10 +55,10 @@ void	philos_routine(t_philo *philos)
 
 void	*philos_repeat(void *philo)
 { 
-	t_philo	*philos;
+	t_philos	*philos;
 	int		count;
 
-	philos = (t_philo *)philo;
+	philos = (t_philos *)philos;
 	count = 0;
 	philos->has_to_die = philos->info->start_chrono + philos->info->die_chrono;
 	while (philos->info->gotta_eat == 0 || count < philos->info->gotta_eat)
@@ -54,45 +71,3 @@ void	*philos_repeat(void *philo)
 	return (NULL);
 }
 
-void	philos_connect(t_info *info, t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < info->philos_num)
-	{
-		philo[i].philo_id = i + 1;
-		philo[i].info = info;
-		if (i == info->philos_num - 1)
-			philo[i].second_fork = &philo[0].fork;
-		else
-			philo[i].second_fork = &philo[i + 1].fork;
-		i++;
-	}
-}
-
-t_philo	*philos_create(t_info *info)
-{
-	t_philo	*philo;
-	int		i;
-
-	i = -1;
-	philo = malloc(sizeof(t_philo) * info->philos_num);
-	if (!philo)
-		return (NULL);
-	while (++i < info->philos_num)
-		pthread_mutex_init(&philo[i].fork, NULL);
-	philos_connect(info, philo);
-	info->start_chrono = time_calcul();
-	i = -1;
-	while (++i < info->philos_num)
-	{
-		if (pthread_create(&philo[i].thread, NULL, philos_repeat, &philo[i]))
-			return (free(philo), NULL);
-		usleep(10);
-	}
-	i = -1;
-	while (++i < info->philos_num)
-		pthread_detach(philo[i].thread);
-	return (philo);
-}
