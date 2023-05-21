@@ -19,8 +19,8 @@ void	philos_connect(t_info *info, t_philos *philo)
 	i = 0;
 	while (i < info->philos_num)
 	{
-		philo[i].philo_id = i + 1;
 		philo[i].info = info;
+		philo[i].philo_id = i + 1;
 		if (i == info->philos_num - 1)
 			philo[i].second_fork = &philo[0].fork;
 		else
@@ -31,10 +31,10 @@ void	philos_connect(t_info *info, t_philos *philo)
 
 long	time_calcul(void)
 {
-	struct timeval	current_time;
+	struct timeval	time_calcul;
 
-	gettimeofday(&current_time, NULL);
-	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+	gettimeofday(&time_calcul, NULL);
+	return ((time_calcul.tv_sec * 1000) + (time_calcul.tv_usec / 1000));
 }
 
 void	philos_routine(t_philos *philos)
