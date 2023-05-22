@@ -46,11 +46,11 @@ void	philos_routine(t_philos *philos)
 	display_message("SECOND FORK TAKEN", philos->philo_id, philos->info);
 	philos->has_to_die = time_calcul() + philos->info->die_chrono;
 	display_message("HE IS EATING", philos->philo_id, philos->info);
-	usleep(philos->info->eat_chrono * 1000);
+	usleep(philos->info->eat_chrono * 100);
 	pthread_mutex_unlock(&philos->fork);
 	pthread_mutex_unlock(philos->second_fork);
 	display_message("HE IS SLEEPING", philos->philo_id, philos->info);
-	usleep(philos->info->sleep_chrono * 1000);
+	usleep(philos->info->sleep_chrono * 100);
 }
 
 void	*philos_repeat(void *philo)
@@ -58,7 +58,7 @@ void	*philos_repeat(void *philo)
 	t_philos	*philos;
 	int		count;
 
-	philos = (t_philos *)philos;
+	philos = (t_philos *)philo;
 	count = 0;
 	philos->has_to_die = philos->info->start_chrono + philos->info->die_chrono;
 	while (philos->info->gotta_eat == 0 || count < philos->info->gotta_eat)

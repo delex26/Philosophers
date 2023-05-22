@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:38:41 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/19 19:25:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/22 22:51:20 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,23 @@ int	check_input(int ac, char **av, t_info *info)
 	return (0);
 }
 
-void	display_message(char *s, int id, t_info *info)
+// void	display_message(char *s, int id, t_info *info)
+// {
+// 	pthread_mutex_lock(&info->type);
+// 	printf("[%ld] %d %s\n", time_calcul() - info->start_chrono, id, s);
+// 	fflush(stdout);
+// 	pthread_mutex_unlock(&info->type);
+// }
+
+void display_message(char *s, int id, time_t start_chrono)
 {
-	pthread_mutex_lock(&info->type);
-	printf("[%ld] %d %s\n", time_calcul() - info->start_chrono, id, s);
-	fflush(stdout);
-	pthread_mutex_unlock(&info->type);
+    time_t current_time = time(NULL);
+    time_t elapsed_time = current_time - start_chrono;
+    
+    printf("[%ld] %d %s\n", elapsed_time, id, s);
+    fflush(stdout);
 }
+
 
 void	ft_check_health(t_philos *philo)
 {
