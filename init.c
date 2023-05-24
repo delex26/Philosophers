@@ -6,11 +6,11 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:00:25 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/06 16:00:25 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:07:02 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 void	philos_connect(t_info *info, t_philos *philosopher)
 {
@@ -39,29 +39,31 @@ long	time_calcul(void)
 
 void	philos_routine(t_philos *philosopher)
 {
-	display_message("HE IS THINKING", philosopher->philo_id, philosopher->info);
+	display("HE IS THINKING", philosopher->philo_id, philosopher->info);
 	pthread_mutex_lock(&philosopher->fork);
-	display_message("FIRST FORK TAKEN", philosopher->philo_id, philosopher->info);
+	display("FIRST FORK TAKEN", philosopher->philo_id, philosopher->info);
 	pthread_mutex_lock(philosopher->second_fork);
-	display_message("SECOND FORK TAKEN", philosopher->philo_id, philosopher->info);
+	display("SECOND FORK TAKEN", philosopher->philo_id, philosopher->info);
 	philosopher->has_to_die = time_calcul() + philosopher->info->die_chrono;
-	display_message("HE IS EATING", philosopher->philo_id, philosopher->info);
+	display("HE IS EATING", philosopher->philo_id, philosopher->info);
 	usleep(philosopher->info->eat_chrono * 1000);
 	pthread_mutex_unlock(&philosopher->fork);
 	pthread_mutex_unlock(philosopher->second_fork);
-	display_message("HE IS SLEEPING", philosopher->philo_id, philosopher->info);
+	display("HE IS SLEEPING", philosopher->philo_id, philosopher->info);
 	usleep(philosopher->info->sleep_chrono * 1000);
 }
 
 void	*philos_repeat(void *str)
-{ 
+{
 	t_philos	*philosopher;
-	int		count;
+	int			count;
 
 	count = 0;
 	philosopher = (t_philos *)str;
-	philosopher->has_to_die = philosopher->info->start_chrono + philosopher->info->die_chrono;
-	while (philosopher->info->gotta_eat == 0 || count < philosopher->info->gotta_eat)
+	philosopher->has_to_die = philosopher->info->start_chrono
+		+ philosopher->info->die_chrono;
+	while (philosopher->info->gotta_eat == 0
+		|| count < philosopher->info->gotta_eat)
 	{
 		philos_routine(philosopher);
 		count++;
@@ -70,4 +72,3 @@ void	*philos_repeat(void *str)
 	philosopher->out = 1;
 	return (NULL);
 }
-

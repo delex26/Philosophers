@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 int	ft_strlen(char *str)
 {
@@ -22,7 +22,6 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
@@ -30,26 +29,27 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-int check_digit(int ac, char **av) 
+int	check_digit(int ac, char **av)
 {
-    int i = 1;
-    int j = 0;
+	int	i;
+	int	j;
 
-    while (i < ac) 
+	i = 1;
+	j = 0;
+	while (i < ac)
 	{
-        while (av[i][j] != '\0') 
+		while (av[i][j] != '\0')
 		{
-            if (!ft_isdigit(av[i][j]) && av[i][j] != '+') 
+			if (!ft_isdigit(av[i][j]) && av[i][j] != '+')
 			{
-                return (1);  
-            }
-            j++;
-        }
-        i++;
-        j = 0;
-    }
-
-    return (0); 
+				return (1);
+			}
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+	return (0);
 }
 
 int	ft_atoi(const char *str)

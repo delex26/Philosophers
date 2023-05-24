@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:00:19 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/06 16:00:19 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:33:42 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 t_philos	*philos_create(t_info *info)
 {
 	t_philos	*philosopher;
-	int		i;
+	int			i;
 
 	i = -1;
 	philosopher = malloc(sizeof(t_philos) * info->philos_num);
@@ -28,9 +28,10 @@ t_philos	*philos_create(t_info *info)
 	i = -1;
 	while (++i < info->philos_num)
 	{
-		if (pthread_create(&philosopher[i].threads, NULL, philos_repeat, &philosopher[i]))
+		if (pthread_create(&philosopher[i].threads, NULL, philos_repeat,
+				&philosopher[i]))
 			return (free(philosopher), NULL);
-			usleep(10);
+		usleep(10);
 	}
 	i = -1;
 	while (++i < info->philos_num)
@@ -41,9 +42,10 @@ t_philos	*philos_create(t_info *info)
 int	main(int ac, char **av)
 {
 	t_philos	*philosopher;
-	t_info	info;
-	int		i;
+	t_info		info;
+	int			i;
 
+	i = -1;
 	if (check_input(ac, av, &info))
 		return (0);
 	pthread_mutex_init(&info.type, NULL);
@@ -59,7 +61,6 @@ int	main(int ac, char **av)
 		check_philos(philosopher);
 		check_death(philosopher);
 	}
-	i = -1;
 	while (++i < info.philos_num)
 		pthread_mutex_destroy(&philosopher[i].fork);
 	pthread_mutex_destroy(&info.type);
