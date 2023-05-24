@@ -14,54 +14,55 @@
 
 t_philos	*philos_create(t_info *info)
 {
-	t_philos	*philo;
+	t_philos	*philosopher;
 	int		i;
 
 	i = -1;
-	philo = malloc(sizeof(t_philos) * info->philos_num);
-	if (!philo)
+	philosopher = malloc(sizeof(t_philos) * info->philos_num);
+	info->start_chrono = time_calcul();
+	if (!philosopher)
 		return (NULL);
 	while (++i < info->philos_num)
-		pthread_mutex_init(&philo[i].fork, NULL);
-	philos_connect(info, philo);
-	info->start_chrono = time_calcul();
+		pthread_mutex_init(&philosopher[i].fork, NULL);
+	philos_connect(info, philosopher);
 	i = -1;
 	while (++i < info->philos_num)
 	{
-		if (pthread_create(&philo[i].threads, NULL, philos_repeat, &philo[i]))
-			return (free(philo), NULL);
-		usleep(10);
+		if (pthread_create(&philosopher[i].threads, NULL, philos_repeat, &philosopher[i]))
+			return (free(philosopher), NULL);
+			usleep(10);
 	}
 	i = -1;
 	while (++i < info->philos_num)
-		pthread_detach(philo[i].threads);
-	return (philo);
+		pthread_detach(philosopher[i].threads);
+	return (philosopher);
 }
 
 int	main(int ac, char **av)
 {
-	int		i;
+	t_philos	*philosopher;
 	t_info	info;
-	t_philos	*philo;
+	int		i;
 
-	info.situation = 0;
-	info.has_eaten = 0;
 	if (check_input(ac, av, &info))
 		return (0);
 	pthread_mutex_init(&info.type, NULL);
-	philo = philos_create(&info);
-	if (philo == NULL)
+	philosopher = philos_create(&info);
+	if (philosopher == NULL)
 		return (0);
+	info.has_eaten = 0;
+	info.situation = 0;
 	while (info.situation == 0)
 	{
-		if (philo->out == 1)
-			philo->info->has_eaten++;
-		ft_check_health(philo);
+		if (philosopher->out == 1)
+			philosopher->info->has_eaten++;
+		check_philos(philosopher);
+		check_death(philosopher);
 	}
 	i = -1;
 	while (++i < info.philos_num)
-		pthread_mutex_destroy(&philo[i].fork);
+		pthread_mutex_destroy(&philosopher[i].fork);
 	pthread_mutex_destroy(&info.type);
-	free(philo);
+	free(philosopher);
 	return (0);
 }

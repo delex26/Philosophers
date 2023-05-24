@@ -45,17 +45,17 @@ typedef struct s_philos
 }	t_philos;
 
 
-void	philos_connect(t_info *info, t_philos *philo);
-long	time_calcul(void);
-void	*philos_repeat(void *philo);
+void		philos_connect(t_info *info, t_philos *philosopher);
+long		time_calcul(void);
+void		*philos_repeat(void *str);
 t_philos	*philos_create(t_info *info);
-int		check_input(int ac, char **av, t_info *info);
-// void	display_message(char *s, int id, t_info *info);
-void 	display_message(char *s, int id, time_t start_chrono);
-void	ft_check_health(t_philos *philo);
-int		ft_isdigit(int c);
-int		check_digit(int ac, char **av);
-int		ft_atoi(const char *str);
+int			check_input(int ac, char **av, t_info *info);
+void		display_message(char *s, int id, t_info *info);
+void		check_philos(t_philos *philosopher);
+void		check_death(t_philos *philosopher);
+int			ft_isdigit(int c);
+int			check_digit(int ac, char **av);
+int			ft_atoi(const char *str);
 
 
 #endif 
