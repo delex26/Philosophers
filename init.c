@@ -6,11 +6,35 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:00:25 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/24 22:07:02 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/25 22:45:21 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+long	time_calcul(void)
+{
+	struct timeval	time_calcul;
+	
+	gettimeofday(&time_calcul, NULL);
+	return ((time_calcul.tv_sec * 1000) + (time_calcul.tv_usec / 1000));
+}
+
+void	philos_routine(t_philos *philosopher)
+{
+	display("is thinking", philosopher->philo_id, philosopher->info);
+	pthread_mutex_lock(&philosopher->fork);
+	display("has taken a fork", philosopher->philo_id, philosopher->info);
+	pthread_mutex_lock(philosopher->second_fork);
+	display("has taken a fork", philosopher->philo_id, philosopher->info);
+	philosopher->has_to_die = time_calcul() + philosopher->info->die_chrono;
+	display("is eating", philosopher->philo_id, philosopher->info);
+	usleep(philosopher->info->eat_chrono * 1000);
+	pthread_mutex_unlock(&philosopher->fork);
+	pthread_mutex_unlock(philosopher->second_fork);
+	display("is sleeping", philosopher->philo_id, philosopher->info);
+	usleep(philosopher->info->sleep_chrono * 1000);
+}
 
 void	philos_connect(t_info *info, t_philos *philosopher)
 {
@@ -27,30 +51,6 @@ void	philos_connect(t_info *info, t_philos *philosopher)
 			philosopher[i].second_fork = &philosopher[i + 1].fork;
 		i++;
 	}
-}
-
-long	time_calcul(void)
-{
-	struct timeval	time_calcul;
-
-	gettimeofday(&time_calcul, NULL);
-	return ((time_calcul.tv_sec * 1000) + (time_calcul.tv_usec / 1000));
-}
-
-void	philos_routine(t_philos *philosopher)
-{
-	display("HE IS THINKING", philosopher->philo_id, philosopher->info);
-	pthread_mutex_lock(&philosopher->fork);
-	display("FIRST FORK TAKEN", philosopher->philo_id, philosopher->info);
-	pthread_mutex_lock(philosopher->second_fork);
-	display("SECOND FORK TAKEN", philosopher->philo_id, philosopher->info);
-	philosopher->has_to_die = time_calcul() + philosopher->info->die_chrono;
-	display("HE IS EATING", philosopher->philo_id, philosopher->info);
-	usleep(philosopher->info->eat_chrono * 1000);
-	pthread_mutex_unlock(&philosopher->fork);
-	pthread_mutex_unlock(philosopher->second_fork);
-	display("HE IS SLEEPING", philosopher->philo_id, philosopher->info);
-	usleep(philosopher->info->sleep_chrono * 1000);
 }
 
 void	*philos_repeat(void *str)

@@ -6,7 +6,7 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:00:19 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/24 22:33:42 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/25 19:59:44 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_philos	*philos_create(t_info *info)
 	int			i;
 
 	i = -1;
-	philosopher = malloc(sizeof(t_philos) * info->philos_num);
 	info->start_chrono = time_calcul();
+	philosopher = malloc(sizeof(t_philos) * info->philos_num);
 	if (!philosopher)
 		return (NULL);
 	while (++i < info->philos_num)
@@ -58,7 +58,7 @@ int	main(int ac, char **av)
 	{
 		if (philosopher->out == 1)
 			philosopher->info->has_eaten++;
-		check_philos(philosopher);
+		check_health(philosopher);
 		check_death(philosopher);
 	}
 	while (++i < info.philos_num)

@@ -6,21 +6,11 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:00:00 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/06 16:00:00 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/25 20:13:16 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
 
 int	ft_isdigit(int c)
 {

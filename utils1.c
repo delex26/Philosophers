@@ -6,7 +6,7 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:38:41 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/24 22:31:18 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/25 22:41:17 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	display(char *s, int id, t_info *info)
 
 	time_elapsed = time_calcul() - info->start_chrono;
 	pthread_mutex_lock(&info->type);
-	printf("[%ld] %d %s\n", time_elapsed, id, s);
+	printf("%ld %d %s\n", time_elapsed, id, s);
 	pthread_mutex_unlock(&info->type);
 }
 
-void	check_philos(t_philos *philosopher)
+void	check_health(t_philos *philosopher)
 {
 	if (philosopher->info->has_eaten == philosopher->info->philos_num)
 	{
@@ -61,7 +61,7 @@ void	check_death(t_philos *philosopher)
 {
 	if (time_calcul() >= philosopher->has_to_die)
 	{
-		display("RIP", philosopher->philo_id, philosopher->info);
+		display("died", philosopher->philo_id, philosopher->info);
 		pthread_mutex_lock(&philosopher->info->type);
 		philosopher->info->situation = 1;
 	}

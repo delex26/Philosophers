@@ -17,7 +17,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)	
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-
+	
 clean :
 	@rm -f $(OBJS)
 

@@ -6,7 +6,7 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:54:53 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/24 21:59:33 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/25 20:12:30 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,14 @@ typedef struct s_philos
 	t_info			*info;
 }					t_philos;
 
-void				philos_connect(t_info *info, t_philos *philosopher);
 long				time_calcul(void);
+void				philos_connect(t_info *info, t_philos *philosopher);
 void				*philos_repeat(void *str);
 t_philos			*philos_create(t_info *info);
 int					check_input(int ac, char **av, t_info *info);
 void				display(char *s, int id, t_info *info);
-void				check_philos(t_philos *philosopher);
+void				check_health(t_philos *philosopher);
 void				check_death(t_philos *philosopher);
-int					ft_isdigit(int c);
 int					check_digit(int ac, char **av);
 int					ft_atoi(const char *str);
 
