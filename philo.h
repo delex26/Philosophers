@@ -6,7 +6,7 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:54:53 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/25 20:12:30 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:47:45 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_philos
 	t_info			*info;
 }					t_philos;
 
-long				time_calcul(void);
 void				philos_connect(t_info *info, t_philos *philosopher);
+long				time_calcul(void);
 void				*philos_repeat(void *str);
 t_philos			*philos_create(t_info *info);
 int					check_input(int ac, char **av, t_info *info);
