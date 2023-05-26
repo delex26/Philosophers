@@ -6,18 +6,18 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:54:53 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/05/26 15:47:45 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:58:30 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <pthread.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/time.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <stdio.h>
 
 typedef struct s_info
 {
